@@ -31,9 +31,22 @@ int i = 100;
 void demo_bool();
 void demo_new();
 void demo_cin();
-int add(int a,int b);
-int add(int a ,char b);
+
 void checkIp(int ip,int port = 8080);
+//在编译时c++会将类型连同函数名一同写入
+//内敛函数必须在主函数前面，不要超过5行
+inline int add(int a,int b){
+    return a+b;
+}
+inline int add(int a,char b){
+    return a+b;
+}
+void swap(int &a,int &b){
+    int tmp = 0;
+    tmp = a;
+    a = b;
+    b = tmp;
+}
 int main(){
 //    int i = 30;
 //    s1::myprint();//域运算符
@@ -43,12 +56,19 @@ int main(){
 //    demo_bool();
 //    demo_new();
 //    demo_cin();
-    int a = 10,b = 20;
-    i = add(a,b);
-
-    cout<<i<<endl;
-    checkIp(1);
-    checkIp(1,8082);
+//    int a = 10,b = 20;
+//    i = add(a,b);
+//
+//    cout<<i<<endl;
+//    checkIp(1);
+//    checkIp(1,8082);
+int num1 =10,num2 = 20;
+//引用不能为空，指针可以为空。引用不能改变指向，指针可以改变，引用与原变量是一样的大小空间，指针是4字节。
+//函数传参不开辟空间，指针需要。引用比指针安全
+    int &a = num1,&b = num2;
+    cout<<"重载前num1   "<<num1<<"num2    "<<num2<<endl;
+    swap(a,b);
+    cout<<"重载后num1   "<<num1<<"num2  "<<num2<<endl;
     return 0;
 }
 void demo_bool(){
@@ -81,13 +101,7 @@ void demo_cin(){
 //    cout<<"new:"<helloName;
 }
 //重载
-//在编译时c++会将类型连同函数名一同写入
-int add(int a,int b){
-    return a+b;
-}
-int add(int a,char b){
-    return a+b;
-}
+
 //赋默认值一定要从右到左，因为实参赋值都是从左到右
 //默认值放在声明里就不要放在函数里
 void checkIp(int ip,int port){
