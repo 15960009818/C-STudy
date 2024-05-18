@@ -21,9 +21,10 @@ public:
     int role;
     //默认构造函数要么都赋予参数要么都不赋予
     CStaff(int id = 1001,char *name = "admin",char *pwd = "123456",int role = ADMIN);
-
+    ~CStaff();
     char * getPwd();//这样可以使用私有的pwd
     void setPwd(char const*newpwd);//这样就能修改值
+    void printf();
 private:
     char pwd[10];
 

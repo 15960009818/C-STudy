@@ -4,17 +4,7 @@
 
 #include "CStaff.h"
 #include <string.h>
-// 构造函数定义
-CStaff::CStaff(int id, const char* name, const char* pwd, int role) {
-    this->id = id;
-    memset(this->name, 0, sizeof(this->name));
-    strncpy(this->name, name, sizeof(this->name) - 1);
-    this->name[sizeof(this->name) - 1] = '\0'; // 确保字符串以 null 结尾
-    memset(this->pwd, 0, sizeof(this->pwd));
-    strncpy(this->pwd, pwd, sizeof(this->pwd) - 1);
-    this->pwd[sizeof(this->pwd) - 1] = '\0'; // 确保字符串以 null 结尾
-    this->role = role;
-}
+#include "iostream"
 
 char * CStaff::getPwd() {
     return this->pwd;
@@ -28,4 +18,23 @@ void CStaff::setPwd(char const* newpwd) {
     strncpy(this->pwd, pwd, sizeof(this->pwd) - 1);
     this->pwd[sizeof(this->pwd) - 1] = '\0';
 }
+//释放指针成员
+CStaff::~CStaff() {
+    std::cout<<"打印析构函数"<<std::endl;
+}
+//构造函数定义
+CStaff::CStaff(int id, char *name, char *pwd, int role) {
+    this->id = id;
+    memset(this->name, 0, sizeof(this->name));
+    strncpy(this->name, name, sizeof(this->name) - 1);
+    this->name[sizeof(this->name) - 1] = '\0'; // 确保字符串以 null 结尾
+    memset(this->pwd, 0, sizeof(this->pwd));
+    strncpy(this->pwd, pwd, sizeof(this->pwd) - 1);
+    this->pwd[sizeof(this->pwd) - 1] = '\0'; // 确保字符串以 null 结尾
+    this->role = role;
+}
 
+void CStaff::printf() {
+    std::cout<<"id"<< this->id<<"name"<<this->name<<"pwd"<<this->getPwd()<<std::endl;
+
+}
