@@ -9,15 +9,21 @@
 #define WAITER 3
 
 class CStaff {
-    //é»˜è®¤ç§æœ‰
+    //Ä¬ÈÏË½ÓĞ
 public:
-    //ä¸€èˆ¬ç”±å°åˆ°å¤§å®šä¹‰ï¼Œæé«˜ç©ºé—´åˆ©ç”¨ç‡
-    //ç±»å®šä¹‰åªèƒ½å®šä¹‰æˆå‘˜ï¼Œä¸èƒ½èµ‹å€¼åˆå§‹åŒ–
+
+//    CStaff(int id,char *name,char *pwd,int role);
+
+    //Ò»°ãÓÉĞ¡µ½´ó¶¨Òå£¬Ìá¸ß¿Õ¼äÀûÓÃÂÊ
+    //Àà¶¨ÒåÖ»ÄÜ¶¨Òå³ÉÔ±£¬²»ÄÜ¸³Öµ³õÊ¼»¯
     int id;
     char name[10];
     int role;
-    char * getPwd();//è¿™æ ·å¯ä»¥ä½¿ç”¨ç§æœ‰çš„pwd
-    void setPwd(char const*newpwd);//è¿™æ ·å°±èƒ½ä¿®æ”¹å€¼
+    //Ä¬ÈÏ¹¹Ôìº¯ÊıÒªÃ´¶¼¸³Óè²ÎÊıÒªÃ´¶¼²»¸³Óè
+    CStaff(int id = 1001,char *name = "admin",char *pwd = "123456",int role = ADMIN);
+
+    char * getPwd();//ÕâÑù¿ÉÒÔÊ¹ÓÃË½ÓĞµÄpwd
+    void setPwd(char const*newpwd);//ÕâÑù¾ÍÄÜĞŞ¸ÄÖµ
 private:
     char pwd[10];
 

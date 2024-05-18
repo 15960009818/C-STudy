@@ -4,15 +4,28 @@
 
 #include "CStaff.h"
 #include <string.h>
+// ¹¹Ôìº¯Êý¶¨Òå
+CStaff::CStaff(int id, const char* name, const char* pwd, int role) {
+    this->id = id;
+    memset(this->name, 0, sizeof(this->name));
+    strncpy(this->name, name, sizeof(this->name) - 1);
+    this->name[sizeof(this->name) - 1] = '\0'; // È·±£×Ö·û´®ÒÔ null ½áÎ²
+    memset(this->pwd, 0, sizeof(this->pwd));
+    strncpy(this->pwd, pwd, sizeof(this->pwd) - 1);
+    this->pwd[sizeof(this->pwd) - 1] = '\0'; // È·±£×Ö·û´®ÒÔ null ½áÎ²
+    this->role = role;
+}
+
 char * CStaff::getPwd() {
     return this->pwd;
 }
-//åœ¨C++ä¸­ï¼Œå­—ç¬¦ä¸²å¸¸é‡ï¼ˆå¦‚"123456"ï¼‰æ˜¯const char*ç±»åž‹
-// ï¼Œè€Œstrcpyç­‰ä¼ ç»Ÿçš„Cå­—ç¬¦ä¸²å‡½æ•°è¦æ±‚ç›®æ ‡æ˜¯ä¸€ä¸ªéžconst char*ç±»åž‹ã€‚è¿™å¯èƒ½å¯¼è‡´è­¦å‘Šæˆ–é”™è¯¯ï¼Œ
-// ç‰¹åˆ«æ˜¯å¦‚æžœç›®æ ‡ç±»åž‹æ˜¯char*æˆ–å¦‚æžœè¯•å›¾å°†å­—ç¬¦ä¸²å¸¸é‡ç›´æŽ¥èµ‹å€¼ç»™char*
+//ÔÚC++ÖÐ£¬×Ö·û´®³£Á¿£¨Èç"123456"£©ÊÇconst char*ÀàÐÍ
+// £¬¶østrcpyµÈ´«Í³µÄC×Ö·û´®º¯ÊýÒªÇóÄ¿±êÊÇÒ»¸ö·Çconst char*ÀàÐÍ¡£Õâ¿ÉÄÜµ¼ÖÂ¾¯¸æ»ò´íÎó£¬
+// ÌØ±ðÊÇÈç¹ûÄ¿±êÀàÐÍÊÇchar*»òÈç¹ûÊÔÍ¼½«×Ö·û´®³£Á¿Ö±½Ó¸³Öµ¸øchar*
 void CStaff::setPwd(char const* newpwd) {
-    //é€šè¿‡copyå®žçŽ°æ•°å€¼æ”¾å…¥
+    //Í¨¹ýcopyÊµÏÖÊýÖµ·ÅÈë
 //    strcpy(this->pwd,newpwd);
     strncpy(this->pwd, pwd, sizeof(this->pwd) - 1);
     this->pwd[sizeof(this->pwd) - 1] = '\0';
 }
+
