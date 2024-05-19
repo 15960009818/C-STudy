@@ -2,7 +2,7 @@
 
 
 
-void gotoxy(int x,int y)//形参
+void Console:: gotoxy(int x,int y)//形参
 {
     HANDLE hOut;
     COORD pos= {static_cast<SHORT>(x),static_cast<SHORT>(y)};
@@ -12,14 +12,38 @@ void gotoxy(int x,int y)//形参
 //printf("定位光标位置搜索(%d,%d)\n",pos.X,pos.Y);
 }
 
-
+int Console::getKey()
+{
+    char key=0;
+    key=getch();
+    if(key == -32||key==224)
+    {
+        key=getch();
+        switch(key)
+        {
+            case 72:return Key::UP;
+            case 75:return Key::LEFT;
+            case 77:return Key::RIGHT;
+            case 80:return Key::DOWN;
+        }
+    }
+    else if (key == 13)
+    {
+        return Key::ENTER;
+    }
+    else if (key == 27)
+    {
+        return Key::ESC;
+    }
+    return key;
+}
 void paintWindow(int startX,int startY,int width,int height)
 {
     int i=0,j=0;
     int line=0;
     //第一行
     //左上角
-    gotoxy(startX,startY);
+    Console::gotoxy(startX,startY);
     printf("┌");
     for(i=0;i<width-2;i++)
     {
@@ -29,7 +53,7 @@ void paintWindow(int startX,int startY,int width,int height)
     line++;
     for(j=0;j<height-2;j++)
     {
-        gotoxy(startX,startY+line);
+        Console::gotoxy(startX,startY+line);
         printf("│");
         for(i=0;i<width-2;i++)
         {
@@ -38,7 +62,7 @@ void paintWindow(int startX,int startY,int width,int height)
         printf("│\n");
         line++;
     }
-    gotoxy(startX,startY+line);
+    Console::gotoxy(startX,startY+line);
     printf("└");
     for(i=0;i<width-2;i++)
     {
@@ -55,8 +79,8 @@ int input_check(int inputType,int maxLen,int mode,char *arr)
     int i=0;
     while(1)
     {
-        ch=getKey();
-        if(ch==KEY_UP||ch==KEY_DOWN) return ch;
+        ch=Console::getKey();
+        if(ch==Key::UP||ch==Key::DOWN) return ch;
         if(ch>='0'&&ch<='9'&&(inputType==1||inputType==3)||
            (ch>='a'&&ch<='z')&&(inputType==2||inputType==3)||
            (ch>='A'&&ch<='Z')&&(inputType==2||inputType==3))
@@ -80,38 +104,14 @@ int input_check(int inputType,int maxLen,int mode,char *arr)
         }
     }
     printf("\t%s",arr);
-    return KEY_ENTER;
+    return Key::ENTER;
 
 }
-int getKey()
-{
-    char key=0;
-    key=getch();
-    if(key == -32||key==224)
-    {
-        key=getch();
-        switch(key)
-        {
-            case 72:return KEY_UP;
-            case 75:return KEY_LEFT;
-            case 77:return KEY_RIGHT;
-            case 80:return KEY_DOWN;
-        }
-    }
-    else if (key == 13)
-    {
-        return KEY_ENTER;
-    }
-    else if (key == 27)
-    {
-        return KEY_ESC;
-    }
-    return key;
-}
+
 void printTable(int x, int y, int col_w, int row_h,int row, int col)
 {
     int i=0,j=0,m=0,q=0,line=0;
-    gotoxy(x,y);
+    Console::gotoxy(x,y);
     //第一行
     printf("┌");
     for(j=0;j<col;j++)
@@ -129,7 +129,7 @@ void printTable(int x, int y, int col_w, int row_h,int row, int col)
 
         for(q=0;q<row_h;q++)
         {
-            gotoxy(x,y+line);
+            Console::gotoxy(x,y+line);
             printf("│");
             for(j=0;j<col;j++)
             {
@@ -143,7 +143,7 @@ void printTable(int x, int y, int col_w, int row_h,int row, int col)
             line++;
         }
 
-        gotoxy(x,y+line);
+        Console::gotoxy(x,y+line);
         //第二部分
         printf("├");
         for(j=0;j<col;j++)
@@ -161,7 +161,7 @@ void printTable(int x, int y, int col_w, int row_h,int row, int col)
     //最后一行
     for(q=0;q<row_h;q++)
     {
-        gotoxy(x,y+line);
+        Console::gotoxy(x,y+line);
         printf("│");
         for(j=0;j<col;j++)
         {
@@ -174,7 +174,7 @@ void printTable(int x, int y, int col_w, int row_h,int row, int col)
         printf("\n");
         line++;
     }
-    gotoxy(x,y+line);
+    Console::gotoxy(x,y+line);
     printf("└");
     //最后一行
     for(j=0;j<col;j++)

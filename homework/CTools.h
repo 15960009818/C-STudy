@@ -2,28 +2,78 @@
 // Created by 1 on 2024/5/18.
 //
 
-#ifndef C_STUDY_TOOLS_H
-#define C_STUDY_TOOLS_H
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
-#include<conio.h>
-#include<string.h>
-#include<windows.h>
-#include<stdlib.h>
+#ifndef CPP_STUDY_TOOLS_H
+#define CPP_STUDY_TOOLS_H
+
+#include <iostream>
 #include <string>
+#include <conio.h>
+#include <windows.h>
 
-#define KEY_UP 72
-#define KEY_DOWN 80
-#define KEY_LEFT 75
-#define KEY_RIGHT 77
-#define KEY_ENTER 13
-#define KEY_ESC 27
+// Constants for key inputs
+namespace Key {
+    const int UP = 72;
+    const int DOWN = 80;
+    const int LEFT = 75;
+    const int RIGHT = 77;
+    const int ENTER = 13;
+    const int ESC = 27;
+}
 
-void gotoxy(int x,int y);
-int input_check(int inputType,int maxLen,int mode,char *arr);
-void paintWindow(int startX,int startY,int width,int height);
-void printTable(int x, int y, int col_w, int row_h,int row, int col );
-int login_check();
-int getKey();
-#endif //C_STUDY_TOOLS_H
+class Console {
+public:
+    static void gotoxy(int x, int y);
+    static int getKey();
+};
+
+class Input {
+public:
+    Input(int type, int maxLength, int mode, const std::string& input)
+            : inputType(type), maxLen(maxLength), mode(mode), inputStr(input) {}
+
+    int check();
+
+private:
+    int inputType;
+    int maxLen;
+    int mode;
+    std::string inputStr;
+};
+
+class Window {
+public:
+    Window(int startX, int startY, int width, int height)
+            : startX(startX), startY(startY), width(width), height(height) {}
+
+    void paint();
+
+private:
+    int startX;
+    int startY;
+    int width;
+    int height;
+};
+
+class Table {
+public:
+    Table(int x, int y, int colWidth, int rowHeight, int rows, int cols)
+            : x(x), y(y), colWidth(colWidth), rowHeight(rowHeight), rows(rows), cols(cols) {}
+
+    void print();
+
+private:
+    int x;
+    int y;
+    int colWidth;
+    int rowHeight;
+    int rows;
+    int cols;
+};
+
+class Authentication {
+public:
+    static int loginCheck();
+};
+
+#endif
+
