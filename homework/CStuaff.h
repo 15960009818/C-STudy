@@ -1,29 +1,39 @@
-#ifndef CSTUAFF_H
-#define CSTUAFF_H
+#ifndef _CSTAFF_H_
+#define _CSTAFF_H_
 
-#include <string>
-#include <vector>
+#define ADMIN 1 //管理员
+#define MANAGER 2 //经理
+#define WAITER 3  //服务员
 
-#define ADMIN 1
-#define MANAGER 2
-#define WAITER 3
+#include"CTools.h"
 
-class CStaff {
+
+
+
+class Staff //表示自定义数据类型--结构体
+{
 public:
+    Staff(int id,char*name,char *pwd,int role);
+    ~Staff();
+    int getId();
+    void setId(int id);
+    char *getName();
+    void setName(char *name);
+    char *getPwd();
+    void setPwd(char *name);
+    int getRole();
+    void setRole(int id);
+
+private:
+    //数据类型 属性名
     int id;
-    std::string name;
-    std::string pwd;
+    char name[10];
+    char pwd[10];
     int role;
-
-    // 构造函数
-    CStaff(int id = 1001, const std::string& name = "admin", const std::string& pwd = "123456", int role = ADMIN);
-
-    // 打印员工信息
-    static void printStaffInfo(const std::vector<CStaff>& staffArr);
-
-    // 添加员工
-    static void addStaff(std::vector<CStaff>& staffArr, const CStaff& newStaff);
 };
 
-int staffJudge(char *name,CStaff *staffArr[],int staffCount);
-#endif // CSTAFF_H
+
+void printfStaffInfo(Staff *staffArr,int staffCount);
+void addStaff(Staff *staffArr,int *staffCount ,Staff newStaff);
+int staffJudge(char *name,Staff *staffArr[],int staffCount);
+#endif
