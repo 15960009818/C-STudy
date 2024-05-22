@@ -68,7 +68,7 @@ int doLogin(int index, const std::string& pwd) { // 修改了参数类型
         return 0;
     }
 
-    if (pwd == staffArr[index]->pwd) { // 使用成员函数访问密码
+    if (pwd == staffArr[index]->getPwd()==0) { // 使用成员函数访问密码
         printf("\n登陆成功\n");
         switch (staffArr[index]->role) {
             case ADMIN: return 1;

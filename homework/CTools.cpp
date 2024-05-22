@@ -1,7 +1,12 @@
 #include"CTools.h"
 
 
-
+//工具函数使用时不需要创建对象
+/**
+     * 移动光标
+     * @param x  x坐标
+     * @param y  y坐标
+     */
 void Console:: gotoxy(int x,int y)//形参
 {
     HANDLE hOut;
@@ -11,7 +16,22 @@ void Console:: gotoxy(int x,int y)//形参
     SetConsoleCursorPosition(hOut, pos);
 //printf("定位光标位置搜索(%d,%d)\n",pos.X,pos.Y);
 }
-
+/**
+ * 生成随机数
+ * @param min 最小值
+ * @param max 最大值
+ * @return
+ */
+int Console::getRandom(int min,int max)//rand()%n[0,n-1];
+{
+    int num=0;
+    num=rand()%(max-min+1)+min;
+    return num;
+}
+/**
+ * 按键输入检测，上下左右
+ * @return 按键值
+ */
 int Console::getKey()
 {
     char key=0;
@@ -37,6 +57,13 @@ int Console::getKey()
     }
     return key;
 }
+/**
+ * paintWindow 选择位置绘制表格
+ * @param startX 起始x轴
+ * @param startY 起始y轴
+ * @param width 宽度
+ * @param height 高度
+ */
 void paintWindow(int startX,int startY,int width,int height)
 {
     int i=0,j=0;
@@ -72,7 +99,14 @@ void paintWindow(int startX,int startY,int width,int height)
 
     //最后一行
 }
-
+/**
+ * 不同的Label按键会执行不同的功能
+ * @param inputType 输入类型（1代表数字，2代表字母，3代表数字和字母）
+ * @param maxLen 输入的最大长度
+ * @param mode 输入模式（1代表直接显示输入，其他值代表显示为'*'）
+ * @param arr 存储输入的字符数组
+ * @return
+ */
 int input_check(int inputType,int maxLen,int mode,char *arr)
 {
     int ch;
@@ -107,7 +141,15 @@ int input_check(int inputType,int maxLen,int mode,char *arr)
     return Key::ENTER;
 
 }
-
+/**
+ * 选择位置绘制表格
+ * @param x 起始x轴
+ * @param y 起始y轴
+ * @param col_w 宽度
+ * @param row_h 高度
+ * @param row 行数
+ * @param col 列数
+ */
 void printTable(int x, int y, int col_w, int row_h,int row, int col)
 {
     int i=0,j=0,m=0,q=0,line=0;

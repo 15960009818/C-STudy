@@ -13,14 +13,19 @@
 class Staff //表示自定义数据类型--结构体
 {
 public:
+
     Staff(int id,char*name,char *pwd,int role);
     ~Staff();
+
     int getId();
     void setId(int id);
+
     char *getName();
     void setName(char *name);
+
     char *getPwd();
     void setPwd(char *name);
+
     int getRole();
     void setRole(int id);
 

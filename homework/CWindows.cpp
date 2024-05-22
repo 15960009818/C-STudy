@@ -1,25 +1,62 @@
 #include"CWindows.h"
 #include"CTools.h"
 #include"CStuaff.h"
-extern CStaff *staffArr[10];
+extern Staff *staffArr[10];
 extern int staffCount;
+using namespace std;
 
 
-
-addCount::addCount(int x,int y,int width,int height,enum ctrltype ctrlType,char *content,int inputType,int mode,int maxLen)
-{
+CLoginWin::CLoginWin(enum ctrltype ctrlType,int x=0,int y=0,char *content=""){
     memset(this->content,0,sizeof(this->content));
     this->x=x;
     this->y=y;
-    this->width=width;
-    this->height=height;
     this->ctrlType=ctrlType;
     strcpy(this->content,content);
-    this->inputType=inputType;
-    this->mode=mode;
-    this->maxLen=maxLen;
+}
+CLoginWin::~CLoginWin(){
 
 }
+void showWin(){
+
+}
+Label::~Label()
+{
+    cout<<"~Lable"<<endl;
+//	delete []this->text;// 释放指针成员
+}
+
+int CLoginWin::getX()
+{
+    return this->x;
+}
+int CLoginWin::getY()
+{
+    return this->y;
+}
+char *CLoginWin::getContent()
+{
+    return this->content;
+}
+void CLoginWin::setX(int x)
+{
+    this->x=x;
+}
+void CLoginWin::setY(int y)
+{
+    this->y=y;
+}
+void CLoginWin::setContent(char *content)
+{
+    strcpy(this->content,content);
+}
+
+
+void Label::show()
+{
+    Console::gotoxy(this->x,this->y);
+    printf("%s",this->content);
+}
+
 Win::Win(int x,int y,int width,int height)
 {
     this->x=x;
@@ -27,57 +64,38 @@ Win::Win(int x,int y,int width,int height)
     this->width=width;
     this->height=height;
     this->ctrlCount=0;
+
+    for(int i=0;i<20;i++)
+    {
+        this->ctrlArr[i]=NULL;
+    }
 }
 Win::~Win()
 {
-}
-void addCount::showLable()
-{
-    gotoxy(this->x,this->y);
-    printf("%s",this->content);
-}
-void addCount::showEdit()
-{
-    unsigned int i=0;
-    paintWindow(this->x,this->y-1,this->width,this->height);
-    gotoxy(this->x+2,this->y);
-    if(this->mode==1)
+    for(int i=0;i<20;i++)
     {
-        printf("%s",this->content);
-        //
+        delete ctrlArr[i];
     }
-    else if(this->mode==0)
-    {
-        for(i=0;i<strlen(this->content);i++)
-        {
-            putch('*');
-        }
-    }
-}
-void addCount::showButton()
-{
-    paintWindow(this->x,this->y-1,this->width,this->height);
-    gotoxy(this->x+2,this->y);
-    printf("%s",this->content);
 }
 
-void Win::addCtrl(addCount *ctrl)
+
+void Win::addCtrl(CLoginWin *ctrl)
 {
     this->ctrlArr[this->ctrlCount++]=ctrl;
 }
-void Win::show()
+void Win::showWin()
 {
     int i=0;
-    paintWindow(this->x,this->y,this->width,this->height);
+    Console::paintWindow(this->x,this->y,this->width,this->height);
 
     for(i=0;i<this->ctrlCount;i++)
     {
 
         switch(this->ctrlArr[i]->ctrlType)
         {
-            case LABEL:this->ctrlArr[i]->showLable(); break;
-            case EDIT:this->ctrlArr[i]->showEdit(); break;
-            case BUTTON:this->ctrlArr[i]->showButton(); break;
+            case LABEL:((Label* )this->ctrlArr[i])->show(); break;
+            case EDIT:((Edit* )this->ctrlArr[i])->show(); break;
+            case BUTTON:((Button* )this->ctrlArr[i])->show(); break;
         }
 
     }
@@ -86,24 +104,23 @@ void Win::show()
 
 
 
-void Win::Run()
+void Win::winRun()
 {
-
     int i=0,key=0;
     for(i=0;i<this->ctrlCount;i++)
     {
         if(this->ctrlArr[i]->ctrlType==EDIT||this->ctrlArr[i]->ctrlType==BUTTON)
         {
-            gotoxy(this->ctrlArr[i]->x+2+strlen(this->ctrlArr[i]->content),this->ctrlArr[i]->y);
+            Console::gotoxy(this->ctrlArr[i]->getX()+2+strlen(this->ctrlArr[i]->getContent()),this->ctrlArr[i]->getY());
             break;
         }
     }
 
     while(1)
     {
-        key=getKey();
+        key=Console::getKey();
         switch(key){
-            case KEY_UP:
+            case Key::UP:
                 i--;
                 if(i<0) i=this->ctrlCount-1;
 
@@ -111,28 +128,28 @@ void Win::Run()
                 {
                     if(this->ctrlArr[i]->ctrlType==EDIT||this->ctrlArr[i]->ctrlType==BUTTON)
                     {
-                        gotoxy(this->ctrlArr[i]->x+2+strlen(this->ctrlArr[i]->content),this->ctrlArr[i]->y);
+                        Console::gotoxy(this->ctrlArr[i]->getX()+2+strlen(this->ctrlArr[i]->getContent()),this->ctrlArr[i]->getY());
                         break;
                     }
                     i--;
                     if(i<0) i=this->ctrlCount-1;
                 }
                 break;
-            case KEY_DOWN:
+            case Key::DOWN:
                 i++;
                 if(i>=this->ctrlCount) i=0;
                 while(1)
                 {
                     if(this->ctrlArr[i]->ctrlType==EDIT||this->ctrlArr[i]->ctrlType==BUTTON)
                     {
-                        gotoxy(this->ctrlArr[i]->x+2+strlen(this->ctrlArr[i]->content),this->ctrlArr[i]->y);
+                        Console::gotoxy(this->ctrlArr[i]->getX()+2+strlen(this->ctrlArr[i]->getContent()),this->ctrlArr[i]->getY());
                         break;
                     }
                     i++;
                     if(i>=this->ctrlCount) i=0;
                 }
                 break;
-            case KEY_ENTER:
+            case Key::ENTER:
                 if(this->ctrlArr[i]->ctrlType==BUTTON)
                 {
                     this->ctrl_index=i;
@@ -146,7 +163,7 @@ void Win::Run()
                     {
                         if(this->ctrlArr[i]->ctrlType==EDIT||this->ctrlArr[i]->ctrlType==BUTTON)
                         {
-                            gotoxy(this->ctrlArr[i]->x+2+strlen(this->ctrlArr[i]->content),this->ctrlArr[i]->y);
+                            Console::gotoxy(this->ctrlArr[i]->getX()+2+strlen(this->ctrlArr[i]->getContent()),this->ctrlArr[i]->getY());
                             break;
                         }
                         i++;
@@ -157,12 +174,13 @@ void Win::Run()
             default:  //其他非特殊字符
                 if(this->ctrlArr[i]->ctrlType==EDIT)
                 {
-
-                    this->ctrlArr[i]->editKeyListen((char)key);
+                    ((Edit*)(this->ctrlArr[i]))->editKeyListen((char)key);
+                    this->ctrlArr[i]->setContent(((Edit*)(this->ctrlArr[i]))->getContent());
                     if(key<0)
                     {
-                        key=getKey();
-                        this->ctrlArr[i]->editKeyListen((char)key);
+                        key=Console::getKey();
+                        ((Edit*)(this->ctrlArr[i]))->editKeyListen((char)key);
+                        this->ctrlArr[i]->setContent(((Edit*)(this->ctrlArr[i]))->getContent());
                     }
 
                 }
@@ -174,8 +192,9 @@ void Win::Run()
 
 }
 
-void addCount::editKeyListen(char ch)
+void Edit::editKeyListen(char ch)
 {
+
     int len=strlen(this->content);
     if(ch=='\b')
     {
@@ -201,7 +220,7 @@ void addCount::editKeyListen(char ch)
     {
         if(len<this->maxLen)
         {
-            ;
+
             putch(this->mode?ch:'*');
             this->content[len]=ch;
             //不用++进入函数自动计算

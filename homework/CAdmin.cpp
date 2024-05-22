@@ -24,6 +24,7 @@ int adminWin()
     addCount *button3=new addCount(40,17,20,3,BUTTON,"人员管理");
     addCount *button4=new addCount(40,20,20,3,BUTTON,"注    销");
     addCount *button5=new addCount(40,23,20,3,BUTTON,"退    出");
+    //将上面的控件添加进数组
     admin.addCtrl(title);//0
     admin.addCtrl(button1);//1
     admin.addCtrl(button2);//2

@@ -22,58 +22,56 @@ namespace Key {
 
 class Console {
 public:
+    /**
+     * 移动光标
+     * @param x  x坐标
+     * @param y  y坐标
+     */
     static void gotoxy(int x, int y);
+    /**
+     * 按键输入检测,上下左右
+     * @return 按键值
+     */
     static int getKey();
+    /**
+     * 生成随机数
+     * @param min 最小值
+     * @param max 最大值
+     * @return
+     */
+    static int getRandom(int min,int max);
+    /**
+     * 不同的Label按键会执行不同的功能
+     * @param inputType 输入类型（1代表数字，2代表字母，3代表数字和字母）
+     * @param maxLen 输入的最大长度
+     * @param mode 输入模式（1代表直接显示输入，其他值代表显示为'*'）
+     * @param arr 存储输入的字符数组
+     * @return
+     */
+    static int input_check(int inputType,int maxLen,int mode,char *arr);
+    /**
+     * paintWindow 选择位置绘制表格
+     * @param startX 起始x轴
+     * @param startY 起始y轴
+     * @param width 宽度
+     * @param height 高度
+     */
+    static void paintWindow(int startX,int startY,int width,int height);
+    /**
+     * 选择位置绘制表格
+     * @param x 起始x轴
+     * @param y 起始y轴
+     * @param col_w 宽度
+     * @param row_h 高度
+     * @param row 行数
+     * @param col 列数
+     */
+    static void printTable(int x, int y, int col_w, int row_h,int row, int col );
+
+    static int login_check();
 };
 
-class Input {
-public:
-    Input(int type, int maxLength, int mode, const std::string& input)
-            : inputType(type), maxLen(maxLength), mode(mode), inputStr(input) {}
 
-    int check();
-
-private:
-    int inputType;
-    int maxLen;
-    int mode;
-    std::string inputStr;
-};
-
-class Window {
-public:
-    Window(int startX, int startY, int width, int height)
-            : startX(startX), startY(startY), width(width), height(height) {}
-
-    void paint();
-
-private:
-    int startX;
-    int startY;
-    int width;
-    int height;
-};
-
-class Table {
-public:
-    Table(int x, int y, int colWidth, int rowHeight, int rows, int cols)
-            : x(x), y(y), colWidth(colWidth), rowHeight(rowHeight), rows(rows), cols(cols) {}
-
-    void print();
-
-private:
-    int x;
-    int y;
-    int colWidth;
-    int rowHeight;
-    int rows;
-    int cols;
-};
-
-class Authentication {
-public:
-    static int loginCheck();
-};
 
 #endif
 

@@ -1,6 +1,12 @@
 #include"CStuaff.h"
 
-
+/**
+ *
+ * @param id
+ * @param name
+ * @param pwd
+ * @param role
+ */
 Staff::Staff(int id,char*name,char *pwd,int role)
 {
     this->id=id;
@@ -12,6 +18,7 @@ Staff::~Staff()
 {
 
 }
+
 int Staff::getId()
 {
     return this->id;
@@ -20,6 +27,7 @@ void Staff::setId(int id)
 {
     this->id=id;
 }
+
 char *Staff::getName()
 {
     return this->name;
@@ -28,6 +36,7 @@ void Staff::setName(char *name)
 {
     strcpy(this->name,name);
 }
+
 char *Staff::getPwd()
 {
     return this->pwd;
@@ -36,6 +45,7 @@ void Staff::setPwd(char *pwd)
 {
     strcpy(this->pwd,pwd);
 }
+
 int Staff::getRole()
 {
     return this->role;
@@ -44,6 +54,7 @@ void Staff::setRole(int role)
 {
     this->role=role;
 }
+
 void printfStaffInfo(Staff *staffArr[],int staffCount)
 {
     int i=0;
@@ -60,6 +71,7 @@ void printfStaffInfo(Staff *staffArr[],int staffCount)
 
     }
 }
+
 void addStaff(Staff *staffArr,int *staffCount ,Staff newStaff)
 {
     staffArr[(*staffCount)++]=newStaff;
